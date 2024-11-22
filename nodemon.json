@@ -1,0 +1,5 @@
+{
+    "watch": ["bin/www", "app.js", "routes/", "views/"],
+    "ext": "js,ejs,css"
+}
+  
