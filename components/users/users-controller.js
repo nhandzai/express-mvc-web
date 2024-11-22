@@ -2,6 +2,9 @@ const userService = require('./users-service');
 const getSignUp = (req, res) => {
     res.render('sign-up', { title: 'Sign Up' });
   };
+const getLogin = (req, res) => {
+    res.render('login-in', { title: 'Log in' });
+  }
 
 const registerUser = async (req, res) => {
     const { fullName, email, password } = req.body;
@@ -15,6 +18,6 @@ const registerUser = async (req, res) => {
 };
 
 module.exports = {
-    registerUser,getSignUp
+    registerUser,getSignUp,getLogin
 };
 

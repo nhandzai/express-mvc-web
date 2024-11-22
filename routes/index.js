@@ -43,6 +43,7 @@ router.get('/contact-us', (req, res, next) =>{
 });
 
 router.get('/sign-up', userController.getSignUp);
+router.get('/log-in', userController.getLogin);
 
 module.exports = router;
 
