@@ -24,15 +24,15 @@
 </head>
 
 <body x-data="{ desktopMenuOpen: false, mobileMenuOpen: false}">
-  <% include header %>
-  =
+  <%- include('header') %>
+  
 
     <main>
       <%- body %>
     </main>
 
 
-    <% include footer %>
+    <%- include('footer') %>
 
       <script type="module" src="javascripts/script.js"></script>
 </body>

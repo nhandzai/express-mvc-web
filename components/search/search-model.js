@@ -1,9 +1,4 @@
-const db = require('../../library/models');
 const { searchProducts } = require('../../library/search');
-
-async function fetchAllProducts() {
-  return await db.products.findAll();
-}
 
 async function fetchProducts(query) {
   if (!query) {
@@ -13,4 +8,4 @@ async function fetchProducts(query) {
   return products;
 }
 
-module.exports = { fetchAllProducts, fetchProducts };
+module.exports = { fetchProducts };

@@ -10,18 +10,38 @@ const contactUsController = require('../components/contact-us/contact-us-control
 const userController = require('../components/users/users-controller');
 
 
-router.get('/', homeController.getHome);
-router.get('/home', homeController.getHome);
+async function handleSearchQuery(req, res, next, searchController, defaultController) {
+    if (req.query.q) {
+        searchController(req, res, next);
+    } else {
+        defaultController(req, res, next);
+    }
+}
 
+router.get('/', (req, res, next) => {
+    handleSearchQuery(req, res, next, catalogController.getSearchProducts, homeController.getHome);
+});
 
-router.get('/catalog', catalogController.getCatalog);
+router.get('/home', (req, res, next) => {
+    handleSearchQuery(req, res, next, catalogController.getSearchProducts, homeController.getHome);
+});
 
+router.get('/catalog', (req, res, next) => {
+    handleSearchQuery(req, res, next, catalogController.getSearchProducts, catalogController.getCatalog);
+});
 
-router.get('/product', productsController.getProduct);
+router.get('/product', (req, res, next) => {
+    handleSearchQuery(req, res, next, catalogController.getSearchProducts, productsController.getProduct);
+});
 
+router.get('/about-us', (req, res, next) =>{
+    handleSearchQuery(req,res,next, catalogController.getSearchProducts, aboutUsController.getAboutUs);
+});
 
-router.get('/about-us', aboutUsController.getAboutUs);
-router.get('/contact-us', contactUsController.getContactUs);
+router.get('/contact-us', (req, res, next) =>{
+    handleSearchQuery(req,res,next, catalogController.getSearchProducts, contactUsController.getContactUs);
+});
+
 router.get('/sign-up', userController.getSignUp);
 
 module.exports = router;
