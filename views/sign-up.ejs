@@ -9,17 +9,25 @@
     <form id="registerForm" class="mt-6 flex flex-col">
       <label for="name">Full Name</label>
       <input id="name" class="mb-3 mt-3 border px-4 py-2" type="text" placeholder="Bogdan Bulakh" />
+      <div id="nameError" class="text-pink-800 hidden px-3 py-2 mt-2 rounded-md text-sm"></div>
+      <!-- Error message container -->
 
       <label class="mt-3" for="email">Email Address</label>
       <input id="email" class="mt-3 border px-4 py-2" type="email" placeholder="user@mail.com" />
+      <div id="emailError" class="text-pink-800 hidden px-3 py-2 mt-2 rounded-md text-sm"></div>
+      <!-- Error message container -->
 
       <label class="mt-5" for="password">Password</label>
       <input id="password" class="mt-3 border px-4 py-2" type="password"
         placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;" />
+      <div id="passwordError" class="text-pink-800 hidden px-3 py-2 mt-2 rounded-md text-sm"></div>
+      <!-- Error message container -->
 
       <label class="mt-5" for="confirmPassword">Confirm Password</label>
       <input id="confirmPassword" class="mt-3 border px-4 py-2" type="password"
         placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;" />
+      <div id="confirmPasswordError" class="text-pink-800 hidden px-3 py-2 mt-2 rounded-md text-sm"></div>
+      <!-- Error message container -->
 
       <div class="mt-4 flex justify-between">
         <div class="flex gap-2">
@@ -49,6 +57,8 @@
     </p>
   </div>
 </section>
+<!-- /Register Card -->
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('registerButton').addEventListener('click', async () => {
@@ -58,15 +68,46 @@
       const confirmPassword = document.getElementById('confirmPassword').value;
       const termsAccepted = document.getElementById('termsCheckbox').checked;
 
-      if (!termsAccepted) {
-        alert('You must accept the terms and conditions.');
-        return;
+      // Clear previous error messages
+      document.getElementById('nameError').classList.add('hidden');
+      document.getElementById('emailError').classList.add('hidden');
+      document.getElementById('passwordError').classList.add('hidden');
+      document.getElementById('confirmPasswordError').classList.add('hidden');
+
+      let hasError = false;
+
+      // Validate form fields
+      if (!fullName) {
+        document.getElementById('nameError').textContent = 'Full name is required.';
+        document.getElementById('nameError').classList.remove('hidden');
+        hasError = true;
+      }
+
+      if (!email) {
+        document.getElementById('emailError').textContent = 'Email is required.';
+        document.getElementById('emailError').classList.remove('hidden');
+        hasError = true;
+      }
+
+      if (!password) {
+        document.getElementById('passwordError').textContent = 'Password is required.';
+        document.getElementById('passwordError').classList.remove('hidden');
+        hasError = true;
       }
 
       if (password !== confirmPassword) {
-        alert('Passwords do not match.');
-        return;
+        document.getElementById('confirmPasswordError').textContent = 'Passwords do not match.';
+        document.getElementById('confirmPasswordError').classList.remove('hidden');
+        hasError = true;
       }
+
+      if (!termsAccepted) {
+        document.getElementById('confirmPasswordError').textContent = 'You must accept the terms and conditions.';
+        document.getElementById('confirmPasswordError').classList.remove('hidden');
+        hasError = true;
+      }
+
+      if (hasError) return;
 
       try {
         const response = await fetch('/api/register', {
@@ -78,17 +119,16 @@
         const data = await response.json();
 
         if (response.ok) {
-          alert('Registration successful!');
-
+          window.location.href = '/log-in'; 
         } else {
-          alert(data.message || 'Registration failed.');
+          document.getElementById('emailError').textContent = data.message || 'Registration failed.';
+          document.getElementById('emailError').classList.remove('hidden');
         }
       } catch (error) {
         console.error('Error:', error);
-        alert('An error occurred during registration.');
+        document.getElementById('emailError').textContent = 'An error occurred during registration.';
+        document.getElementById('emailError').classList.remove('hidden');
       }
     });
   });
-
 </script>
-<!-- /Register Card -->
