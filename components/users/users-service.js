@@ -23,7 +23,39 @@ const registerUser = async (fullName, email, password) => {
         throw new Error('Server error.');
     }
 };
+const loginUser = async (email, password) => {
+    if (!email || !password) {
+        throw new Error('All fields are required.');
+    }
+
+    try {
+        const user = await User.findOne({ where: { email } });
+        if (!user) {
+            console.log('User not found.')
+            throw new Error('User not found.');
+           
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            console.log('Invalid credentials.')
+            throw new Error('Invalid credentials.');
+            
+        }
+
+        return user;
+    } catch (error) {
+     
+        if (error.message === 'User not found.' || error.message === 'Invalid credentials.') {
+            console.log('1')
+            throw error;
+        }
+        console.log('2')
+        throw new Error('Server error.');
+    }
+};
+
 
 module.exports = {
-    registerUser,
+    registerUser,loginUser
 };

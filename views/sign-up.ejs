@@ -119,6 +119,7 @@
         const data = await response.json();
 
         if (response.ok) {
+          alert('Registration successful. Please log in.');
           window.location.href = '/log-in'; 
         } else {
           document.getElementById('emailError').textContent = data.message || 'Registration failed.';

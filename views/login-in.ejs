@@ -8,28 +8,21 @@
 
     <form id="loginForm" class="mt-6 flex flex-col">
       <label for="email">Email Address</label>
-      <input
-        id="email"
-        class="mb-3 mt-3 border px-4 py-2"
-        type="email"
-        placeholder="youremail@domain.com"
-      />
-      <div id="emailError" class="text-pink-800 hidden px-3 py-2 mt-2 rounded-md text-sm"></div> <!-- Error message container -->
+      <input id="email" class="mb-3 mt-3 border px-4 py-2" type="email" placeholder="youremail@domain.com" />
+      <div id="emailError" class="text-pink-800 hidden px-3 py-2 mt-2 rounded-md text-sm"></div>
+      <!-- Error message container -->
 
       <label for="password">Password</label>
-      <input
-        id="password"
-        class="mt-3 border px-4 py-2"
-        type="password"
-        placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
-      />
-      <div id="passwordError" class="text-pink-800 hidden px-3 py-2 mt-2 rounded-md text-sm"></div> <!-- Error message container -->
+      <input id="password" class="mt-3 border px-4 py-2" type="password"
+        placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;" />
+      <div id="passwordError" class="text-pink-800 hidden px-3 py-2 mt-2 rounded-md text-sm"></div>
+      <!-- Error message container -->
 
       <div class="mt-4 flex justify-between">
-        <form class="flex gap-2">
+        <div  class="flex gap-2">
           <input type="checkbox" id="rememberMe" />
           <label for="checkbox">Remember me</label>
-        </form>
+        </div>
         <a href="#" class="text-violet-900">Forgot password</a>
       </div>
 
@@ -57,11 +50,11 @@
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
 
-   
+
       document.getElementById('emailError').classList.add('hidden');
       document.getElementById('passwordError').classList.add('hidden');
 
-     
+
       let hasError = false;
 
       if (!email || !password) {
@@ -88,7 +81,7 @@
         const data = await response.json();
 
         if (response.ok) {
-          window.location.href = '/home'; 
+          window.location.href = '/home';
         } else {
           document.getElementById('emailError').textContent = data.message || 'Login failed.';
           document.getElementById('emailError').classList.remove('hidden');

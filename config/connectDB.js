@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
-const sequelize = new Sequelize('bdsnualyms1ak5fmxvfs', 'ucuthzsaexbsm5cc', "9cQJgtkaiW77ks1zI1u0", {
-    host: 'bdsnualyms1ak5fmxvfs-mysql.services.clever-cloud.com',
+const sequelize = new Sequelize('defaultdb', 'avnadmin', "AVNS_cqHrlHR8P625NwNZXqk", {
+    host: 'db-web-express-phamhoangkha14032004-1eee.b.aivencloud.com',
     dialect: 'mysql'
 });
 

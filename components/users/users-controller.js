@@ -16,8 +16,18 @@ const registerUser = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
+const loginUser = async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await userService.loginUser(email, password);
+        res.status(201).json({ message: 'User logged in successfully.', user });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
 
 module.exports = {
-    registerUser,getSignUp,getLogin
+    registerUser,getSignUp,getLogin,loginUser
 };
 
