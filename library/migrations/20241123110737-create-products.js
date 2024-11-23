@@ -31,9 +31,7 @@ module.exports = {
       weight_kg: {
         type: Sequelize.FLOAT
       },
-      color: {
-        type: Sequelize.STRING
-      },
+      
       promotion: {
         type: Sequelize.INTEGER // Chỉ lưu giá trị số
       },
@@ -46,6 +44,9 @@ module.exports = {
       stock_quantity: {
         type: Sequelize.INTEGER
       },
+      size: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -54,6 +55,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
+      
     });
 
     // Thêm dữ liệu vào bảng 'products'
@@ -66,11 +68,11 @@ module.exports = {
         detail: "This ergonomic chair combines both style and function, offering exceptional lumbar support for long hours of sitting. Its modern design features clean lines and a contemporary aesthetic that suits both home offices and professional settings.",
         material: "Fabric, Steel, Wood",
         weight_kg: 4.5,
-        color: "Black, Gray, White",
         promotion: 10, // Chỉ ghi số mà không có "% off"
         branch: "APEX",
         category: "Office",
-        stock_quantity: 100,
+        stock_quantity: 0,
+        size: "XS,M,XL",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -82,11 +84,11 @@ module.exports = {
         detail: "A roomy, Italian-style sofa made to be comfortable and convenient in your home. This sofa is both fashionable and long-lasting, with luxurious cushions and premium upholstery. It is ideal for living rooms or communal areas because of its ample size, which comfortably fits several people. It may be easily incorporated into a variety of decor styles thanks to its exquisite yet simple design.",
         material: "Upholstery, Wood, Foam",
         weight_kg: 34.0,
-        color: "Navy Blue, Beige, Brown",
         promotion: 15,
         branch: "Call of SOFA",
         category: "Living Room",
-        stock_quantity: 100,
+        stock_quantity: 12,
+        size: "XS,M,L",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -98,11 +100,11 @@ module.exports = {
         detail: "The Guyer Kitchen set is designed to combine functionality with modern aesthetics. Featuring plenty of storage options, it is perfect for organizing kitchen essentials while adding a sleek, contemporary look to your cooking space. It’s ideal for those who value both practicality and style in their kitchens.",
         material: "Wood, Stainless Steel",
         weight_kg: 68.2,
-        color: "White, Silver, Charcoal",
         promotion: 5,
         branch: "Puff B&G",
         category: "Office",
-        stock_quantity: 100,
+        stock_quantity: 10,
+        size: "XS,S,XL",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -114,13 +116,14 @@ module.exports = {
         detail: "The Guyer Room set offers a combination of luxurious comfort and modern style. This set is ideal for creating a welcoming and elegant atmosphere in your living space. With its seamless design, it fits perfectly in both contemporary and classic interiors, ensuring comfort without compromising style.",
         material: "Wood, Fabric, Foam",
         weight_kg: 54.4,
-        color: "Light Gray, Cream, Brown",
         promotion: 20,
         branch: "Fornighte",
         category: "Living Room",
-        stock_quantity: 100,
+        stock_quantity: 54,
+        size: "S,L,XL",
         createdAt: new Date(),
         updatedAt: new Date()
+
       },
       {
         name: "BEDROOM",
@@ -130,11 +133,11 @@ module.exports = {
         detail: "The Bedroom set combines sophisticated design with maximum comfort, ensuring a restful night’s sleep. Made with premium materials and soothing hues, it brings tranquility to your space while offering plenty of storage solutions and a stylish, modern aesthetic.",
         material: "Wood, Fabric, Foam",
         weight_kg: 59.0,
-        color: "Pastel Blue, White, Beige",
         promotion: 8,
         branch: "APEX",
         category: "Bedroom",
-        stock_quantity: 100,
+        stock_quantity: 0,
+        size: "XS,M,XL",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -146,11 +149,11 @@ module.exports = {
         detail: "The Living Guyer set is crafted to fit perfectly in any modern living room, offering both comfort and elegance. Its unique design combines plush cushions with a stylish frame, making it ideal for creating a cozy yet chic space. Whether you're hosting guests or relaxing, this set offers both style and durability.",
         material: "Wood, Fabric, Foam",
         weight_kg: 49.9,
-        color: "Green, Black, Gray",
         promotion: 12,
         branch: "Call of SOFA",
         category: "Living Room",
         stock_quantity: 100,
+        size: "S,M,L",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -162,11 +165,11 @@ module.exports = {
         detail: "The Street Chair is designed for outdoor comfort and durability. Constructed with weather-resistant materials, it’s ideal for patios, gardens, and balconies. Its ergonomic design ensures comfort for hours of sitting, while its sleek, modern aesthetic adds a touch of style to any outdoor area.",
         material: "Metal, Fabric",
         weight_kg: 6.8,
-        color: "Gray, Black, Green",
         promotion: 18,
         branch: "Puff B&G",
         category: "Outdoor",
-        stock_quantity: 100,
+        stock_quantity: 1,
+        size: "XS,S,M",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -178,15 +181,17 @@ module.exports = {
         detail: "A roomy, Italian-style sofa made to be comfortable and convenient in your home. This sofa is both fashionable and long-lasting, with luxurious cushions and premium upholstery. It is ideal for living rooms or communal areas because of its ample size, which comfortably fits several people. It may be easily incorporated into a variety of decor styles thanks to its exquisite yet simple design.",
         material: "Upholstery, Wood, Foam",
         weight_kg: 38.6,
-        color: "White, Black, Gray",
         promotion: 10,
         branch: "Fornighte",
         category: "Living Room",
         stock_quantity: 100,
+        size: "XS,M,XL",
         createdAt: new Date(),
         updatedAt: new Date()
       }
     ]);
+ 
+
   },
 
   async down(queryInterface, Sequelize) {

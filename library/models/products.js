@@ -22,9 +22,19 @@ module.exports = (sequelize, DataTypes) => {
     material: DataTypes.STRING,
     weight_kg: DataTypes.FLOAT,
     stock_quantity: DataTypes.INTEGER,
-    promotion: DataTypes.INTEGER,  
+    promotion: DataTypes.INTEGER,
+    size: DataTypes.STRING,
     branch: DataTypes.STRING,
-    category: DataTypes.STRING
+    category: DataTypes.STRING,
+    real_price: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        if (this.price && this.promotion) {
+          return (this.price * (1 - (this.promotion / 100))).toFixed(2);
+        }
+        return this.price;  // Trả về giá gốc nếu không có chương trình khuyến mãi
+      }
+    }
   }, {
     sequelize,
     modelName: 'products',
