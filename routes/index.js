@@ -26,6 +26,8 @@ router.get('/home', (req, res, next) => {
     handleSearchQuery(req, res, next, catalogController.getSearchProducts, homeController.getHome);
 });
 
+router.get('/catalogFilter',catalogController.getFilterProducts);
+
 router.get('/catalog', (req, res, next) => {
     handleSearchQuery(req, res, next, catalogController.getSearchProducts, catalogController.getCatalog);
 });
