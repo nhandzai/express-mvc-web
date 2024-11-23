@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     stock_quantity: DataTypes.INTEGER,
     promotion: DataTypes.INTEGER,
     size: DataTypes.STRING,
-    branch: DataTypes.STRING,
+    brand: DataTypes.STRING,
     category: DataTypes.STRING,
     real_price: {
       type: DataTypes.VIRTUAL,
@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         if (this.price && this.promotion) {
           return (this.price * (1 - (this.promotion / 100))).toFixed(2);
         }
-        return this.price;  // Trả về giá gốc nếu không có chương trình khuyến mãi
+        return this.price;  
       }
     }
   }, {

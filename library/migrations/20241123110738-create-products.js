@@ -33,9 +33,9 @@ module.exports = {
       },
       
       promotion: {
-        type: Sequelize.INTEGER // Chỉ lưu giá trị số
+        type: Sequelize.INTEGER 
       },
-      branch: {
+      brand: {
         type: Sequelize.STRING
       },
       category: {
@@ -68,8 +68,8 @@ module.exports = {
         detail: "This ergonomic chair combines both style and function, offering exceptional lumbar support for long hours of sitting. Its modern design features clean lines and a contemporary aesthetic that suits both home offices and professional settings.",
         material: "Fabric, Steel, Wood",
         weight_kg: 4.5,
-        promotion: 10, // Chỉ ghi số mà không có "% off"
-        branch: "APEX",
+        promotion: 10, 
+        brand: "APEX",
         category: "Office",
         stock_quantity: 0,
         size: "XS,M,XL",
@@ -85,8 +85,8 @@ module.exports = {
         material: "Upholstery, Wood, Foam",
         weight_kg: 34.0,
         promotion: 15,
-        branch: "Call of SOFA",
-        category: "Living Room",
+        brand: "Call of SOFA",
+        category: "Sofa",
         stock_quantity: 12,
         size: "XS,M,L",
         createdAt: new Date(),
@@ -101,8 +101,8 @@ module.exports = {
         material: "Wood, Stainless Steel",
         weight_kg: 68.2,
         promotion: 5,
-        branch: "Puff B&G",
-        category: "Office",
+        brand: "Puff B&G",
+        category: "Kitchen",
         stock_quantity: 10,
         size: "XS,S,XL",
         createdAt: new Date(),
@@ -117,7 +117,7 @@ module.exports = {
         material: "Wood, Fabric, Foam",
         weight_kg: 54.4,
         promotion: 20,
-        branch: "Fornighte",
+        brand: "Fornighte",
         category: "Living Room",
         stock_quantity: 54,
         size: "S,L,XL",
@@ -134,7 +134,7 @@ module.exports = {
         material: "Wood, Fabric, Foam",
         weight_kg: 59.0,
         promotion: 8,
-        branch: "APEX",
+        brand: "APEX",
         category: "Bedroom",
         stock_quantity: 0,
         size: "XS,M,XL",
@@ -150,7 +150,7 @@ module.exports = {
         material: "Wood, Fabric, Foam",
         weight_kg: 49.9,
         promotion: 12,
-        branch: "Call of SOFA",
+        brand: "Call of SOFA",
         category: "Living Room",
         stock_quantity: 100,
         size: "S,M,L",
@@ -166,7 +166,7 @@ module.exports = {
         material: "Metal, Fabric",
         weight_kg: 6.8,
         promotion: 18,
-        branch: "Puff B&G",
+        brand: "Puff B&G",
         category: "Outdoor",
         stock_quantity: 1,
         size: "XS,S,M",
@@ -182,8 +182,8 @@ module.exports = {
         material: "Upholstery, Wood, Foam",
         weight_kg: 38.6,
         promotion: 10,
-        branch: "Fornighte",
-        category: "Living Room",
+        brand: "Fornighte",
+        category: "Sofa",
         stock_quantity: 100,
         size: "XS,M,XL",
         createdAt: new Date(),

@@ -66,7 +66,7 @@
         <%=product.stock_quantity %>
       </span></p>
     <p class="mt-5 font-bold"> Brand: <span class="font-normal">
-        <%=product.branch %>
+        <%=product.brand %>
       </span></p>
     <p class="mt-5 font-bold"> Cathegory: <span class="font-normal">
         <%=product.category %>
@@ -75,9 +75,12 @@
 
 
     <p class="mt-4 text-4xl font-bold text-violet-900">
-      <%=product.price %>$
+      <%= product.real_price %>$
+        <span class="text-sm text-gray-500 line-through">
+          <%= product.price %>$
         </span>
     </p>
+
 
     <p class="pt-5 text-sm leading-5 text-gray-500">
       <%- product.short_description %>
@@ -154,7 +157,7 @@
       <tr>
         <td class="border pl-4 font-bold">Brands</td>
         <td class="border pl-4">
-          <%= product.branch %>
+          <%= product.brand %>
         </td>
       </tr>
 
