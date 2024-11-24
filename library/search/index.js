@@ -40,8 +40,8 @@ async function searchFilterProducts(queries) {
     throw new Error('Search query is required.');
   }
 
-  const categoryQueries = queries.filter(query => query.includes('bedroom') || query.includes('sofa') || query.includes('office') || query.includes('outdoor'));
-  const branchQueries = queries.filter(query => query.includes('APEX') || query.includes('Call of SOFA') || query.includes('Puff B&G') || query.includes('Fornighte'));
+  const categoryQueries = queries.filter(query => query.includes('bedroom') || query.includes('sofa') || query.includes('office') || query.includes('outdoor') || query.includes('kitchen') || query.includes('living room'));
+  const brandQueries = queries.filter(query => query.includes('APEX') || query.includes('Call of SOFA') || query.includes('Puff B&G') || query.includes('Fornighte'));
 
   const whereClause = {
     [db.Sequelize.Op.and]: []
@@ -55,10 +55,10 @@ async function searchFilterProducts(queries) {
     });
   }
 
-  if (branchQueries.length > 0) {
+  if (brandQueries.length > 0) {
     whereClause[db.Sequelize.Op.and].push({
-      branch: {
-        [db.Sequelize.Op.in]: branchQueries 
+      brand: {
+        [db.Sequelize.Op.in]: brandQueries 
       }
     });
   }
