@@ -41,7 +41,8 @@ async function searchFilterProducts(queries) {
   }
 
   const categoryQueries = queries.filter(query => query.includes('bedroom') || query.includes('sofa') || query.includes('matrass') || query.includes('outdoor') || query.includes('kitchen') || query.includes('living room'));
-  const brandQueries = queries.filter(query => query.includes('APEX') || query.includes('Call of SOFA') || query.includes('Puff B&G') || query.includes('Fornighte'));
+  const brandQueries = queries.filter(query => query.includes('APEX') || query.includes('Cof') || query.includes('Puff B&G') || query.includes('Fornighte'));
+  const sizeQueries = queries.filter(query => query.includes('XS') || query.includes('S') || query.includes('M') || query.includes('L') || query.includes('XL'));
 
   const whereClause = {
     [db.Sequelize.Op.and]: []
@@ -63,11 +64,22 @@ async function searchFilterProducts(queries) {
     });
   }
 
+  if (sizeQueries.length > 0) {
+    whereClause[db.Sequelize.Op.and].push({
+      [db.Sequelize.Op.or]: sizeQueries.map(size => ({
+        size: {
+          [db.Sequelize.Op.like]: `%${size}%` 
+        }
+      }))
+    });
+  }
+
   const products = await db.products.findAll({
     where: whereClause
   });
 
   return products;
 }
+``
 
 module.exports = { searchProducts, searchPriceProducts, searchFilterProducts };

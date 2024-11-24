@@ -25,7 +25,7 @@ async function getSearchProducts(req, res, next) {
 
 async function getFilterProducts(req, res, next) {
   try {
-    const queries = req.query.q || [];
+    const queries = req.query.qf || [];
 
     if (queries.length === 0) {
       throw new Error('Search query is missing');
@@ -40,5 +40,22 @@ async function getFilterProducts(req, res, next) {
   }
 }
 
-module.exports = { getCatalog, getSearchProducts, getFilterProducts};
+async function handleSearchQuery(req, res, next) {
+  try {
+    if (!req.query) {
+      throw new Error('Search query is missing');
+    }
+    if (req.query.qf) {
+      return getFilterProducts(req, res, next)
+    }
+    else {
+      return getSearchProducts(req, res, next)
+    }
+
+  } catch (error) {
+    next(error);
+  }
+}
+
+module.exports = { getCatalog, getSearchProducts, getFilterProducts, handleSearchQuery };
 
