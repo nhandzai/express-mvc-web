@@ -1,4 +1,4 @@
-const { fetchAllProducts, fetchProducts } = require('./catalog-model');
+const { fetchAllProducts, fetchProducts, fetchFilterProducts } = require('./catalog-model');
 const { renderCatalogPage } = require('./catalog-view');
 
 async function getCatalog(req, res, next) {
@@ -23,5 +23,22 @@ async function getSearchProducts(req, res, next) {
   }
 }
 
-module.exports = { getCatalog, getSearchProducts };
+async function getFilterProducts(req, res, next) {
+  try {
+    const queries = req.query.q || [];
+
+    if (queries.length === 0) {
+      throw new Error('Search query is missing');
+    }
+    const queryArray = Array.isArray(queries) ? queries : [queries];
+    console.log(queryArray)
+    const products = await fetchFilterProducts(queryArray);
+    console.log(products)
+    renderCatalogPage(res, products);
+  } catch (error) {
+    next(error);
+  }
+}
+
+module.exports = { getCatalog, getSearchProducts, getFilterProducts};
 

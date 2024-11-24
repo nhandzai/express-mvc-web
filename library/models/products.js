@@ -15,16 +15,26 @@ module.exports = (sequelize, DataTypes) => {
 
   products.init({
     name: DataTypes.STRING,
-    price: DataTypes.STRING,
+    price: DataTypes.FLOAT,
     image_link: DataTypes.STRING,
     short_description: DataTypes.TEXT,
     detail: DataTypes.TEXT,
     material: DataTypes.STRING,
     weight_kg: DataTypes.FLOAT,
     stock_quantity: DataTypes.INTEGER,
-    promotion: DataTypes.INTEGER,  
-    branch: DataTypes.STRING,
-    category: DataTypes.STRING
+    promotion: DataTypes.INTEGER,
+    size: DataTypes.STRING,
+    brand: DataTypes.STRING,
+    category: DataTypes.STRING,
+    real_price: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        if (this.price && this.promotion) {
+          return (this.price * (1 - (this.promotion / 100))).toFixed(2);
+        }
+        return this.price;  
+      }
+    }
   }, {
     sequelize,
     modelName: 'products',

@@ -1,10 +1,11 @@
 {
   "development": {
-    "username": "ucuthzsaexbsm5cc",
-    "password": "9cQJgtkaiW77ks1zI1u0",
-    "database": "bdsnualyms1ak5fmxvfs",
-    "host": "bdsnualyms1ak5fmxvfs-mysql.services.clever-cloud.com",
-    "dialect": "mysql"
+    "username": "avnadmin",
+    "password": "AVNS_cqHrlHR8P625NwNZXqk",
+    "database": "defaultdb",
+    "host": "db-web-express-phamhoangkha14032004-1eee.b.aivencloud.com",
+    "dialect": "mysql",
+    "port":"18278"
   },
   "test": {
     "username": "root",
@@ -14,10 +15,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "ucuthzsaexbsm5cc",
-    "password": "9cQJgtkaiW77ks1zI1u0",
-    "database": "bdsnualyms1ak5fmxvfs",
-    "host": "bdsnualyms1ak5fmxvfs-mysql.services.clever-cloud.com",
+    "username": "avnadmin",
+    "password": "AVNS_cqHrlHR8P625NwNZXqk",
+    "database": "defaultdb",
+    "host": "db-web-express-phamhoangkha14032004-1eee.b.aivencloud.com",
     "dialect": "mysql"
   }
 }
