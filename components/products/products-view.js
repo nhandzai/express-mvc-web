@@ -1,7 +1,8 @@
-async function renderProductPage(res, product) {
+async function renderProductPage(res, product,relatedProducts) {
   res.render('product', {
     title: 'Product Details',
     product: product,
+    relatedProducts: relatedProducts,
   });
 }
 

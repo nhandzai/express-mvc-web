@@ -19,55 +19,95 @@ async function searchProducts(query) {
   return products;
 }
 
-async function searchPriceProducts(minPrice, maxPrice) {
-  if (minPrice == null || maxPrice == null) {
-    throw new Error('Both minPrice and maxPrice are required.');
+async function searchFilterProducts(minPrice, maxPrice, queries) {
+  const whereClause = {};
+
+  if (minPrice != null && maxPrice != null) {
+    whereClause.price = {
+      [db.Sequelize.Op.between]: [minPrice, maxPrice],
+    };
+  } else if (minPrice != null) {
+    whereClause.price = {
+      [db.Sequelize.Op.gte]: minPrice,
+    };
+  } else if (maxPrice != null) {
+    whereClause.price = {
+      [db.Sequelize.Op.lte]: maxPrice,
+    };
   }
 
-  const products = await db.products.findAll({
-    where: {
-      price: {
-        [db.Sequelize.Op.between]: [minPrice, maxPrice]
-      }
+  if (queries && queries.length > 0) {
+    const categoryQueries = queries.filter(query =>
+      ['bedroom', 'sofa', 'matrass', 'outdoor', 'kitchen', 'living room'].includes(query)
+    );
+    const brandQueries = queries.filter(query =>
+      ['APEX', 'Cof', 'Puff B&G', 'Fornighte'].includes(query)
+    );
+    const sizeQueries = queries.filter(query =>
+      ['XS', 'S', 'M', 'L', 'XL'].includes(query)
+    );
+
+    if (categoryQueries.length > 0) {
+      whereClause.category = {
+        [db.Sequelize.Op.in]: categoryQueries,
+      };
     }
+
+    if (brandQueries.length > 0) {
+      whereClause.brand = {
+        [db.Sequelize.Op.in]: brandQueries,
+      };
+    }
+
+    if (sizeQueries.length > 0) {
+      whereClause[db.Sequelize.Op.or] = sizeQueries.map(size => ({
+        size: {
+          [db.Sequelize.Op.like]: `%${size}%`,
+        },
+      }));
+    }
+  }
+  const products = await db.products.findAll({
+    where: whereClause,
   });
 
   return products;
 }
-
-async function searchFilterProducts(queries) {
-  if (!queries || queries.length === 0) {
-    throw new Error('Search query is required.');
+async function searchProductsByField({
+  field,
+  value,
+  excludeId,
+  limit,
+ 
+}) {
+  if (!field || !value) {
+    throw new Error('Field and value are required.');
   }
-
-  const categoryQueries = queries.filter(query => query.includes('bedroom') || query.includes('sofa') || query.includes('matrass') || query.includes('outdoor') || query.includes('kitchen') || query.includes('living room'));
-  const brandQueries = queries.filter(query => query.includes('APEX') || query.includes('Call of SOFA') || query.includes('Puff B&G') || query.includes('Fornighte'));
 
   const whereClause = {
-    [db.Sequelize.Op.and]: []
+    [field]: {
+      [db.Sequelize.Op.eq]: value,
+    },
   };
 
-  if (categoryQueries.length > 0) {
-    whereClause[db.Sequelize.Op.and].push({
-      category: {
-        [db.Sequelize.Op.in]: categoryQueries 
-      }
-    });
+  if (excludeId) {
+    whereClause.id = {
+      [db.Sequelize.Op.ne]: excludeId,
+    };
   }
 
-  if (brandQueries.length > 0) {
-    whereClause[db.Sequelize.Op.and].push({
-      brand: {
-        [db.Sequelize.Op.in]: brandQueries 
-      }
-    });
-  }
+  const queryOptions = {
+    where: whereClause,
+    limit: limit || 10, 
+  };
 
-  const products = await db.products.findAll({
-    where: whereClause
-  });
+  const products = await db.products.findAll(queryOptions);
 
   return products;
 }
 
-module.exports = { searchProducts, searchPriceProducts, searchFilterProducts };
+
+
+
+
+module.exports = { searchProducts, searchFilterProducts,searchProductsByField };
