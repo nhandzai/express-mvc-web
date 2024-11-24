@@ -11,7 +11,7 @@ const userController = require('../components/users/users-controller');
 
 
 async function handleSearchQuery(req, res, next, searchController, defaultController) {
-    if (req.query.q||req.query.qf) {
+    if (req.query.q||req.query.qf||req.query.minPrice||req.query.maxPrice) {
         searchController(req, res, next);
     } else {
         defaultController(req, res, next);

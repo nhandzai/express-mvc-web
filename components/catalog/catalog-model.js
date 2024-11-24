@@ -13,11 +13,8 @@ async function fetchProducts(query) {
   return products;
 }
 
-async function fetchFilterProducts(queries) {
-  if (!queries || queries.length === 0) {
-    throw new Error('Search query is required.');
-  }
-  const products = await searchFilterProducts(queries);
+async function fetchFilterProducts(minPrice, maxPrice, queries) {
+  const products = await searchFilterProducts(minPrice, maxPrice, queries);
   return products;
 }
 

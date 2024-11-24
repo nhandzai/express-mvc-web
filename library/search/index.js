@@ -19,67 +19,63 @@ async function searchProducts(query) {
   return products;
 }
 
-async function searchPriceProducts(minPrice, maxPrice) {
-  if (minPrice == null || maxPrice == null) {
-    throw new Error('Both minPrice and maxPrice are required.');
+async function searchFilterProducts(minPrice, maxPrice, queries) {
+  const whereClause = {};
+
+  if (minPrice != null && maxPrice != null) {
+    whereClause.price = {
+      [db.Sequelize.Op.between]: [minPrice, maxPrice],
+    };
+  } else if (minPrice != null) {
+    whereClause.price = {
+      [db.Sequelize.Op.gte]: minPrice,
+    };
+  } else if (maxPrice != null) {
+    whereClause.price = {
+      [db.Sequelize.Op.lte]: maxPrice,
+    };
   }
 
-  const products = await db.products.findAll({
-    where: {
-      price: {
-        [db.Sequelize.Op.between]: [minPrice, maxPrice]
-      }
+  if (queries && queries.length > 0) {
+    const categoryQueries = queries.filter(query =>
+      ['bedroom', 'sofa', 'matrass', 'outdoor', 'kitchen', 'living room'].includes(query)
+    );
+    const brandQueries = queries.filter(query =>
+      ['APEX', 'Cof', 'Puff B&G', 'Fornighte'].includes(query)
+    );
+    const sizeQueries = queries.filter(query =>
+      ['XS', 'S', 'M', 'L', 'XL'].includes(query)
+    );
+
+    if (categoryQueries.length > 0) {
+      whereClause.category = {
+        [db.Sequelize.Op.in]: categoryQueries,
+      };
     }
-  });
 
-  return products;
-}
+    if (brandQueries.length > 0) {
+      whereClause.brand = {
+        [db.Sequelize.Op.in]: brandQueries,
+      };
+    }
 
-async function searchFilterProducts(queries) {
-  if (!queries || queries.length === 0) {
-    throw new Error('Search query is required.');
-  }
-
-  const categoryQueries = queries.filter(query => query.includes('bedroom') || query.includes('sofa') || query.includes('matrass') || query.includes('outdoor') || query.includes('kitchen') || query.includes('living room'));
-  const brandQueries = queries.filter(query => query.includes('APEX') || query.includes('Cof') || query.includes('Puff B&G') || query.includes('Fornighte'));
-  const sizeQueries = queries.filter(query => query.includes('XS') || query.includes('S') || query.includes('M') || query.includes('L') || query.includes('XL'));
-
-  const whereClause = {
-    [db.Sequelize.Op.and]: []
-  };
-
-  if (categoryQueries.length > 0) {
-    whereClause[db.Sequelize.Op.and].push({
-      category: {
-        [db.Sequelize.Op.in]: categoryQueries 
-      }
-    });
-  }
-
-  if (brandQueries.length > 0) {
-    whereClause[db.Sequelize.Op.and].push({
-      brand: {
-        [db.Sequelize.Op.in]: brandQueries 
-      }
-    });
-  }
-
-  if (sizeQueries.length > 0) {
-    whereClause[db.Sequelize.Op.and].push({
-      [db.Sequelize.Op.or]: sizeQueries.map(size => ({
+    if (sizeQueries.length > 0) {
+      whereClause[db.Sequelize.Op.or] = sizeQueries.map(size => ({
         size: {
-          [db.Sequelize.Op.like]: `%${size}%` 
-        }
-      }))
-    });
+          [db.Sequelize.Op.like]: `%${size}%`,
+        },
+      }));
+    }
   }
-
   const products = await db.products.findAll({
-    where: whereClause
+    where: whereClause,
   });
 
   return products;
 }
-``
 
-module.exports = { searchProducts, searchPriceProducts, searchFilterProducts };
+
+
+
+
+module.exports = { searchProducts, searchFilterProducts };

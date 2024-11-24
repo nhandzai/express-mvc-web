@@ -180,7 +180,6 @@
           </div>
         </div>
       </div>
-
       <div class="flex border-b py-5">
         <div class="w-full">
           <p class="mb-3 font-medium">PRICE</p>
@@ -188,7 +187,7 @@
             <div class="flex justify-between">
               <input
                 id="price-min"
-                name="qp"
+                name="minPrice"
                 type="number"
                 min="0"
                 class="h-8 w-[90px] border pl-2"
@@ -197,7 +196,7 @@
               <span class="px-3">-</span>
               <input
                 id="price-max"
-                name="qp"
+                name="maxPrice"
                 type="number"
                 max="999999"
                 min="1"
@@ -207,8 +206,10 @@
             </div>
           </div>
         </div>
+        <button type="submit" class="ml-auto h-full bg-amber-400 px-4 hover:bg-yellow-300">
+          Search
+        </button>
       </div>
-
       <div class="flex border-b py-5">
         <div class="w-full">
           <p class="mb-3 font-medium">SIZE</p>
@@ -339,18 +340,24 @@
       queryParams.push(`${paramName}=` + encodeURIComponent(checkbox.value));
     });
 
+    const minPrice = document.getElementById("price-min").value;
+    const maxPrice = document.getElementById("price-max").value;
+
+    if (minPrice) queryParams.push(`minPrice=${encodeURIComponent(minPrice)}`);
+    if (maxPrice) queryParams.push(`maxPrice=${encodeURIComponent(maxPrice)}`);
+
     if (queryParams.length > 0) {
       form.action = "/catalog?" + queryParams.join("&");
     } else {
       form.action = "/catalog";
     }
+
     form.submit();
   }
 
   function preserveCheckboxState() {
     const urlParams = new URLSearchParams(window.location.search);
 
-    // Preserve category and brand states
     const checkedFilters = urlParams.getAll("qf");
     checkedFilters.forEach((filter) => {
       const checkbox = document.getElementById(filter);
@@ -358,7 +365,19 @@
         checkbox.checked = true;
       }
     });
+
+    const minPrice = urlParams.get("minPrice");
+    const maxPrice = urlParams.get("maxPrice");
+
+    if (minPrice) {
+      document.getElementById("price-min").value = minPrice;
+    }
+    if (maxPrice) {
+      document.getElementById("price-max").value = maxPrice;
+    }
   }
 
   window.onload = preserveCheckboxState;
+
+
 </script>
