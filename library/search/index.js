@@ -40,7 +40,7 @@ async function searchFilterProducts(queries) {
     throw new Error('Search query is required.');
   }
 
-  const categoryQueries = queries.filter(query => query.includes('bedroom') || query.includes('sofa') || query.includes('office') || query.includes('outdoor') || query.includes('kitchen') || query.includes('living room'));
+  const categoryQueries = queries.filter(query => query.includes('bedroom') || query.includes('sofa') || query.includes('matrass') || query.includes('outdoor') || query.includes('kitchen') || query.includes('living room'));
   const brandQueries = queries.filter(query => query.includes('APEX') || query.includes('Call of SOFA') || query.includes('Puff B&G') || query.includes('Fornighte'));
 
   const whereClause = {
