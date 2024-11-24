@@ -11,7 +11,7 @@ const userController = require('../components/users/users-controller');
 
 
 async function handleSearchQuery(req, res, next, searchController, defaultController) {
-    if (req.query.q||req.query.qf||req.query.minPrice||req.query.maxPrice) {
+    if (req.query.q || req.query.qf || req.query.minPrice || req.query.maxPrice) {
         searchController(req, res, next);
     } else {
         defaultController(req, res, next);
@@ -44,6 +44,6 @@ router.get('/contact-us', (req, res, next) => {
 
 router.get('/sign-up', userController.getSignUp);
 router.get('/log-in', userController.getLogin);
-
+router.get('/log-out', userController.getLogout);
 module.exports = router;
 

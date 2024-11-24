@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
-const { User } = require('../../library/models');
-
+const { User, RefreshToken } = require('../../library/models');
+require('dotenv').config();
+var jwt = require('jsonwebtoken');
 const registerUser = async (fullName, email, password) => {
     if (!fullName || !email || !password) {
         throw new Error('All fields are required.');
@@ -33,19 +34,19 @@ const loginUser = async (email, password) => {
         if (!user) {
             console.log('User not found.')
             throw new Error('User not found.');
-           
+
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
             console.log('Invalid credentials.')
             throw new Error('Invalid credentials.');
-            
+
         }
 
         return user;
     } catch (error) {
-     
+
         if (error.message === 'User not found.' || error.message === 'Invalid credentials.') {
             console.log('1')
             throw error;
@@ -55,7 +56,35 @@ const loginUser = async (email, password) => {
     }
 };
 
+const generateAccessToken = (user) => {
+    const a = jwt.sign({ id: user.id }, process.env.JWT_ACCESS, { expiresIn: '1h' });
+
+    return jwt.sign({ id: user.id }, process.env.JWT_ACCESS, { expiresIn: '1h' });
+};
+
+const generateAndStoreRefreshToken = async (user, rememberMe = false) => {
+    const expiration = rememberMe ? '30d' : '7d';
+    const refreshToken = jwt.sign({ id: user.id }, process.env.JWT_REFRESH, { expiresIn: expiration });
+
+    await RefreshToken.create({
+        token: refreshToken,
+        userId: user.id,
+        expiresAt: new Date(Date.now() + (rememberMe ? 30 : 7) * 24 * 60 * 60 * 1000),
+    });
+
+    return refreshToken;
+};
+
+const findRefreshToken = async (token) => {
+    return await RefreshToken.findOne({ where: { token } });
+};
+
+const deleteRefreshToken = async (token) => {
+    await RefreshToken.destroy({ where: { token } });
+};
+
+
 
 module.exports = {
-    registerUser,loginUser
+    registerUser, loginUser, generateAccessToken, generateAndStoreRefreshToken, findRefreshToken, deleteRefreshToken
 };
