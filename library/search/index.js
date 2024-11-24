@@ -60,9 +60,14 @@ async function searchFilterProducts(minPrice, maxPrice, queries) {
     }
 
     if (sizeQueries.length > 0) {
-      whereClause[db.Sequelize.Op.or] = sizeQueries.map(size => ({
+      whereClause[db.Sequelize.Op.and] = sizeQueries.map(size => ({
         size: {
-          [db.Sequelize.Op.like]: `%${size}%`,
+          [db.Sequelize.Op.or]: [
+            { [db.Sequelize.Op.like]: `${size},%` },
+            { [db.Sequelize.Op.like]: `%, ${size},%` },
+            { [db.Sequelize.Op.like]: `%, ${size}` },
+            { [db.Sequelize.Op.eq]: size },
+          ],
         },
       }));
     }
