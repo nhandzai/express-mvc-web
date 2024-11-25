@@ -48,10 +48,10 @@ const loginUser = async (email, password) => {
     } catch (error) {
 
         if (error.message === 'User not found.' || error.message === 'Invalid credentials.') {
-            console.log('1')
+         
             throw error;
         }
-        console.log('2')
+       
         throw new Error('Server error.');
     }
 };

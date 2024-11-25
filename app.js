@@ -30,13 +30,13 @@ app.use(cors());
 app.use(require('express-ejs-layouts'));
 
 app.use(session({
-  secret: 'sadfdfdfd', 
+  secret: process.env.SECRET_KEY,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } 
+  cookie: { secure: false }
 }));
 app.use((req, res, next) => {
-  res.locals.user = req.session.user; 
+  res.locals.user = req.session.user;
   next();
 });
 

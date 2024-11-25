@@ -31,9 +31,9 @@ module.exports = {
       weight_kg: {
         type: Sequelize.FLOAT
       },
-      
+
       promotion: {
-        type: Sequelize.INTEGER 
+        type: Sequelize.INTEGER
       },
       brand: {
         type: Sequelize.STRING
@@ -55,7 +55,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-      
+
     });
 
     // Thêm dữ liệu vào bảng 'products'
@@ -68,9 +68,9 @@ module.exports = {
         detail: "This ergonomic chair combines both style and function, offering exceptional lumbar support for long hours of sitting. Its modern design features clean lines and a contemporary aesthetic that suits both home offices and professional settings.",
         material: "Fabric, Steel, Wood",
         weight_kg: 4.5,
-        promotion: 10, 
+        promotion: 10,
         brand: "APEX",
-        category: "Office",
+        category: "Living Room",
         stock_quantity: 0,
         size: "XS,M,XL",
         createdAt: new Date(),
@@ -118,7 +118,7 @@ module.exports = {
         weight_kg: 54.4,
         promotion: 20,
         brand: "Fornighte",
-        category: "Living Room",
+        category: "Matrass",
         stock_quantity: 54,
         size: "S,L,XL",
         createdAt: new Date(),
@@ -188,9 +188,73 @@ module.exports = {
         size: "XS,M,XL",
         createdAt: new Date(),
         updatedAt: new Date()
+      },
+      {
+        name: "COMFY BED",
+        price: 85.00,
+        image_link: "images/compy-bed.jpg",
+        short_description: "A plush and comfortable bed designed to provide ultimate relaxation.",
+        detail: "The Comfy Bed features high-quality materials that ensure maximum comfort and durability. Perfect for creating a restful and cozy environment in your bedroom.",
+        material: "Wood, Fabric, Foam",
+        weight_kg: 55.0,
+        promotion: 12,
+        brand: "APEX",
+        category: "Bedroom",
+        stock_quantity: 30,
+        size: "S,M,L",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: "LUXURY MATRASS",
+        price: 120.00,
+        image_link: "images/luxury-matrass.jpg",
+        short_description: "A premium matrass that offers luxurious comfort for a restful night's sleep.",
+        detail: "The Luxury Matrass is made with high-density foam that contours to your body, providing support and comfort. It's perfect for those who want both comfort and durability in their bedding.",
+        material: "Foam, Fabric",
+        weight_kg: 20.0,
+        promotion: 18,
+        brand: "Fornighte",
+        category: "Matrass",
+        stock_quantity: 50,
+        size: "M,L,XL",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: "OUTDOOR BENCH",
+        price: 65.00,
+        image_link: "images/outdoor-bench.jpg",
+        short_description: "A durable outdoor bench perfect for gardens or patios.",
+        detail: "The Outdoor Bench is constructed with weather-resistant materials and provides comfortable seating for outdoor spaces. Its sleek design complements any garden or patio setting.",
+        material: "Metal, Wood",
+        weight_kg: 12.5,
+        promotion: 10,
+        brand: "Call of SOFA",
+        category: "Outdoor",
+        stock_quantity: 20,
+        size: "S,M,L",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: "MODERN KITCHEN SET",
+        price: 150.00,
+        image_link: "images/kitchen-set.jpg",
+        short_description: "A stylish kitchen set designed to optimize storage and functionality.",
+        detail: "The Modern Kitchen Set is made of high-quality materials and offers ample storage space. Its contemporary design fits well in any modern kitchen and provides both style and functionality.",
+        material: "Wood, Stainless Steel",
+        weight_kg: 70.0,
+        promotion: 15,
+        brand: "Puff B&G",
+        category: "Kitchen",
+        stock_quantity: 15,
+        size: "XS,M,L",
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ]);
- 
+
 
   },
 
