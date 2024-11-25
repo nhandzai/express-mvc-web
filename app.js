@@ -1,21 +1,23 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
-
+const session = require('express-session');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var registerRouter = require('./routes/api.js');
 var connectDB = require('./config/connectDB.js');
 var app = express();
 connectDB();
-require('dotenv').config();
+
 // view engine setup
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
 
 app.set('layout', 'index');
 app.use(logger('dev'));
@@ -26,7 +28,17 @@ app.use(express.static('public'));
 
 app.use(cors());
 app.use(require('express-ejs-layouts'));
-app.set('layout', 'index');
+
+app.use(session({
+  secret: process.env.SECRET_KEY,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
+app.use((req, res, next) => {
+  res.locals.user = req.session.user;
+  next();
+});
 
 
 app.use('/', indexRouter);
@@ -36,6 +48,7 @@ app.use('/api', registerRouter);
 app.use(function (req, res, next) {
   next(createError(404));
 });
+
 
 // error handler
 app.use(function (err, req, res, next) {
