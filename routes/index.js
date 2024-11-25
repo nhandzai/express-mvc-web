@@ -42,8 +42,14 @@ router.get('/contact-us', (req, res, next) => {
     handleSearchQuery(req, res, next, catalogController.getSearchProducts, contactUsController.getContactUs);
 });
 
-router.get('/sign-up', userController.getSignUp);
-router.get('/log-in', userController.getLogin);
+router.get('/sign-up', (req, res, next) => {
+    handleSearchQuery(req, res, next, catalogController.getSearchProducts, userController.getSignUp);
+});
+
+router.get('/log-in', (req, res, next) => {
+    handleSearchQuery(req, res, next, catalogController.getSearchProducts, userController.getLogin);
+});
+
 router.get('/log-out', userController.getLogout);
 module.exports = router;
 
