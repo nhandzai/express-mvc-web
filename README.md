@@ -21,19 +21,6 @@ Visit the application at:
 
 ---
 
-## Database Configuration  
-
-### MySQL Database Details  
-- **Hostname**: `bdsnualyms1ak5fmxvfs-mysql.services.clever-cloud.com`  
-- **Port**: `3306` (default)  
-- **Username**: `ucuthzsaexbsm5cc`  
-- **Password**: `9cQJgtkaiW77ks1zI1u0`  
-- **Database Name**: `bdsnualyms1ak5fmxvfs`  
-
-You can use this configuration to connect and query data via:  
-1. A MySQL client (e.g., MySQL Workbench, TablePlus, PhpMyAdmin).  
-2. A CLI tool like `mysql`.  
-3. Application code using libraries such as `mysql2` or `Sequelize`.  
 
 ---
 
